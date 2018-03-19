@@ -52,7 +52,7 @@ class Publishable(Model):
     Base model for Article and Page models.
     """
 
-    preview_id = UUIDField(default=uuid.uuid4)
+    preview_id = UUIDField(default=uuid.uuid4, unique=False)
     revision_id = PositiveIntegerField(default=0, db_index=True)
     head = BooleanField(default=False, db_index=True)
 
