@@ -16,6 +16,10 @@ const DEFAULT_ANSWERS = [
   {
     'name': '',
     'vote_count': 0
+  },
+  {
+    'name': '',
+    'vote_count': 0
   }
 ]
 
