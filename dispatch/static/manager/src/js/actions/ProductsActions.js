@@ -14,6 +14,10 @@ class ProductsActions extends ResourceActions {
 
     data.tag_ids = data.tags
 
+    if (data.image) {
+      data.image.image_id = data.image.image
+    }
+
     return data
   }
 

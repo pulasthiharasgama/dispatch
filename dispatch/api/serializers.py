@@ -1023,8 +1023,7 @@ class ProductSerializer(DispatchModelSerializer):
     quantity = serializers.IntegerField(required=True)
     size = serializers.CharField(required=False, allow_null=True)
 
-    image = serializers.ImageField(required=False, validators=[FilenameValidator], write_only=True)
-    image_url = serializers.CharField(source='get_absolute_image_url', read_only=True)
+    image = ImageAttachmentSerializer(required=False, allow_null=True)
 
     tags = TagSerializer(many=True, read_only=True)
     tag_ids = serializers.ListField(
@@ -1038,7 +1037,6 @@ class ProductSerializer(DispatchModelSerializer):
             'id',
             'description',
             'image',
-            'image_url',
             'name',
             'price',
             'quantity',
@@ -1060,9 +1058,13 @@ class ProductSerializer(DispatchModelSerializer):
         instance.description = validated_data.get('description', instance.description)
         instance.size = validated_data.get('size', instance.size)
         instance.price = validated_data.get('price', instance.price)
-        instance.image = validated_data.get('image', instance.image)
 
         instance.save()
+
+        image = validated_data.get('image', False)
+        print('image', image)
+        if image != False:
+            instance.save_image(image)
 
         tag_ids = validated_data.get('tag_ids', False)
         if tag_ids != False:
