@@ -58,9 +58,9 @@ function ProductsPageComponent(props) {
       typeSingular='product'
       displayColumn='name'
       filters={filters}
-      headers={[ 'Name', '', 'Tags', 'Created', '']}
+      headers={[ 'Name', 'Quantity','Tags', 'Created', 'Updated']}
       extraColumns={[
-        item => item.name,
+        item => item.quantity,
         item => item.tags,
         item => item.created_at,
         item => item.updated_at
