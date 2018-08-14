@@ -979,7 +979,7 @@ class ProductSerializer(DispatchModelSerializer):
         tag_ids = validated_data.get('tag_ids', False)
         if tag_ids != False:
             instance.save_tags(tag_ids)
-
-        instance.save()
+        else: 
+            instance.save_tags([])
 
         return instance

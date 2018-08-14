@@ -9,6 +9,17 @@ import ItemEditor from '../ItemEditor'
 const TYPE = 'Product'
 const AFTER_DELETE = 'store'
 
+const validateData = (data) => {
+  let result = Object.assign({}, data)
+  Object.keys(data).map((key) => {
+    if (Array.isArray(data[key]) && !data[key].length) {
+      delete result[key]
+    }
+  })
+
+  return result
+}
+
 const mapStateToProps = (state) => {
   return {
     listItem: state.app.products.single,
@@ -29,7 +40,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(productsActions.set(product))
     },
     saveListItem: (token, productId, data) => {
-      dispatch(productsActions.save(token, productId, data))
+      dispatch(productsActions.save(token, productId, validateData(data)))
     },
     createListItem: (token, data) => {
       dispatch(productsActions.create(token, data, AFTER_DELETE))

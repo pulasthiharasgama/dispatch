@@ -24,7 +24,6 @@ function prepareMultipartPayload(payload) {
       }
     }
   }
-
   return formData
 }
 
