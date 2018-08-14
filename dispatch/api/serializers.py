@@ -1019,7 +1019,7 @@ class ProductSerializer(DispatchModelSerializer):
     """Serializes the Product model."""
 
     name = serializers.CharField(required=True)
-    price = serializers.IntegerField(required=True)
+    price = serializers.DecimalField(required=True, min_value=0, max_digits=6, decimal_places=2)
     quantity = serializers.IntegerField(required=True)
     size = serializers.CharField(required=False, allow_null=True)
 

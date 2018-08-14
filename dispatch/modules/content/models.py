@@ -13,7 +13,7 @@ from django.db import transaction
 from django.db.models import (
     Model, DateTimeField, CharField, TextField, PositiveIntegerField,
     ImageField, FileField, BooleanField, UUIDField, ForeignKey,
-    ManyToManyField, SlugField, SET_NULL, CASCADE, F)
+    ManyToManyField, SlugField, SET_NULL, CASCADE, F, DecimalField)
 from django.conf import settings
 from django.core.validators import MaxValueValidator
 from django.utils import timezone
@@ -647,7 +647,7 @@ class Product(Model):
     image = ImageField(upload_to='images/store', null=True)
     name = CharField(max_length=255)
     description = TextField(blank=True, null=True)
-    price = PositiveIntegerField(null=True)
+    price = DecimalField(max_digits=6, decimal_places=2)
     quantity = PositiveIntegerField(null=True)
     size = CharField(max_length=255, null=True)
     tags = ManyToManyField('Tag')
@@ -672,7 +672,6 @@ class Product(Model):
         """
         if self.image:
             return settings.MEDIA_URL + str(self.image)
-            
+
     def __str__(self):
-        return self.full_name or ''
-    
+        return self.name or ''
