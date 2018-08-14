@@ -1052,7 +1052,6 @@ class ProductSerializer(DispatchModelSerializer):
         return self.update(instance, validated_data)
 
     def update(self, instance, validated_data, is_new=False):
-        print(validated_data)
         instance.name = validated_data.get('name', instance.name)
         instance.quantity = validated_data.get('quantity', instance.quantity)
         instance.description = validated_data.get('description', instance.description)
@@ -1062,7 +1061,6 @@ class ProductSerializer(DispatchModelSerializer):
         instance.save()
 
         image = validated_data.get('image', False)
-        print('image', image)
         if image != False:
             instance.save_image(image)
 

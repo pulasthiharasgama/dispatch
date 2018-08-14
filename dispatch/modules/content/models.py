@@ -685,7 +685,7 @@ class Product(Model):
             'credit': str
           }
         """
-        print(data)
+
         attachment = self.image
 
         if data is None:
