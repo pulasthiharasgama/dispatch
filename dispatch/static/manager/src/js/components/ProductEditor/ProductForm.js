@@ -1,8 +1,7 @@
 import React from 'react'
-import Dropzone from 'react-dropzone'
-import { AnchorButton } from '@blueprintjs/core'
+import R from 'ramda'
 
-import { FormInput, TextInput, TextAreaInput } from '../inputs'
+import { FormInput, TextInput, TextAreaInput, ImageInput } from '../inputs'
 import { TagSelectInput } from '../inputs/selects'
 
 require('../../../styles/components/person_form.scss')
@@ -16,12 +15,39 @@ export default class ProductForm extends React.Component {
     }
   }
 
-  onDrop(files) {
-    this.props.update('image', files[0])
-    this.setState({ displayImg: files[0].preview })
+  updateImage(imageId) {
+    if (imageId) {
+      return this.props.update(
+          'image',
+          R.merge(this.props.listItem.image, { image: imageId })
+      )
+    } else {
+      return this.props.update(
+          'image',
+          null
+      )
+    }
+  }
+
+  renderSelect() {
+    return (
+      <ImageInput
+        onChange={imageId => this.updateImage(imageId)} />
+    )
+
+  }
+
+  renderImage() {
+    return (
+      <ImageInput
+        removable={true}
+        selected={this.props.listItem.image.image}
+        onChange={imageId => this.updateImage(imageId)} />
+    )
   }
 
   render() {
+
     return (
       <form onSubmit={e => e.preventDefault()}>
         <FormInput
@@ -34,37 +60,13 @@ export default class ProductForm extends React.Component {
             fill={true}
             onChange={e => this.props.update('name', e.target.value)} />
         </FormInput>
+
         <FormInput
           label='Image'
           padded={false}
-          error={this.props.errors.image} />
-        <Dropzone
-          ref={(node) => { this.dropzone = node }}
-          className='c-person-form__image__dropzone'
-          onDrop={(files) => this.onDrop(files)}
-          disableClick={true}
-          activeClassName='c-person-form__image__dropzone--active'
-          multiple={false}>
-          <div
-            className='c-person-form__images__container'>
-            {this.state.displayImg || this.props.listItem.image_url ? null :
-              <div className='c-person-form__image__dropzone__text'>
-                Drop Image Here
-              </div>}
-            <img
-              className='c-person-form__images'
-              src={this.state.displayImg || this.props.listItem.image_url} />
-          </div>
-          </Dropzone>
-        <div className='c-person-form__image__button'>
-          <AnchorButton
-            onClick={() => this.dropzone.open()}>Select Image</AnchorButton>
-        </div>
-
-        {this.props.errors.detail ?
-          <div className='pt-callout pt-intent-danger c-person-form__image__error'>
-            {this.props.errors.detail}
-          </div> : null}
+          error={this.props.errors.image} >
+          {this.props.listItem.image && this.props.listItem.image.image ? this.renderImage() : this.renderSelect()}
+        </FormInput>
 
         <FormInput
           label='Description'

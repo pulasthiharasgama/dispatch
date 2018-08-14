@@ -644,15 +644,18 @@ class PollVote(Model):
     timestamp = DateTimeField(auto_now_add=True)
 
 class Product(Model):
-    image = ImageField(upload_to='images/store', null=True)
     name = CharField(max_length=255)
     description = TextField(blank=True, null=True)
     price = DecimalField(max_digits=6, decimal_places=2)
     quantity = PositiveIntegerField(null=True)
+
     size = CharField(max_length=255, null=True)
-    tags = ManyToManyField('Tag')
+
     created_at = DateTimeField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)
+
+    image = ForeignKey('ImageAttachment', on_delete=SET_NULL, related_name='%(class)s_featured_image', blank=True, null=True)
+    tags = ManyToManyField('Tag')
 
     def save_tags(self, tag_ids):
         self.tags.clear()
@@ -663,15 +666,47 @@ class Product(Model):
             except Tag.DoesNotExist:
                 pass
 
-    def get_image_url(self):
-        return settings.MEDIA_URL + str(self.image)
-
-    def get_absolute_image_url(self):
+    def save_image(self, data):
         """
-        Returns image URL.
-        """
-        if self.image:
-            return settings.MEDIA_URL + str(self.image)
+        Handles saving the featured image.
 
-    def __str__(self):
-        return self.name or ''
+        If data is None, the featured image will be removed.
+
+        `data` should be dictionary with the following format:
+          {
+            'image_id': int,
+            'caption': str,
+            'credit': str
+          }
+        """
+
+        attachment = self.image
+
+        if data is None:
+            if attachment:
+                attachment.delete()
+
+            self.image = None
+            return
+
+        if data['image_id'] is None:
+            if attachment:
+                attachment.delete()
+
+            self.image = None
+            return
+
+        if not attachment:
+            attachment = ImageAttachment()
+
+        attachment.image_id = data.get('image_id', attachment.image_id)
+        attachment.caption = data.get('caption', None)
+        attachment.credit = data.get('credit', None)
+
+        instance_type = str(type(self)).lower()
+
+        setattr(attachment, instance_type, self)
+
+        attachment.save()
+
+        self.image = attachment
