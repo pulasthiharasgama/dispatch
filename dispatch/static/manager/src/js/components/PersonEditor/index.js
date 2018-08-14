@@ -30,7 +30,6 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(personsActions.set(person))
     },
     saveListItem: (token, personId, data) => {
-      console.log(data)
       dispatch(personsActions.save(token, personId, data))
     },
     createListItem: (token, data) => {
