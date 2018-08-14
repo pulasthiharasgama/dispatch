@@ -18,6 +18,7 @@ export const VIDEOS = resourceActionTypes('VIDEOS')
 export const INVITES = resourceActionTypes('INVITES')
 export const POLLS = resourceActionTypes('POLLS')
 export const PRODUCTS = resourceActionTypes('PRODUCTS')
+export const SUBSECTIONS = resourceActionTypes('SUBSECTIONS')
 
 // Authentication actions
 export const AUTH = actionTypes('AUTH', [
