@@ -666,12 +666,6 @@ class Product(Model):
             except Tag.DoesNotExist:
                 pass
 
-    def get_image_url(self):
-        return settings.MEDIA_URL + str(self.image)
-
-    def __str__(self):
-        return self.name or ''
-
     def save_image(self, data):
         """
         Handles saving the featured image.
