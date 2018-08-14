@@ -26,6 +26,7 @@ const DesktopHeader = () => {
           <HeaderButtons />
         </div>
         <div className={'col-2 flex-end'}>
+          {renderLink('/store/', 'pt-icon-shop', 'Store')}
           {renderLink('/profile/', 'pt-icon-user', '')}
           {renderLink('/logout/', 'pt-icon-log-out', '')}
         </div>

@@ -24,6 +24,12 @@ render((
             <Route path=':sectionId' component={Pages.Sections.Section} />
           </Route>
 
+          <Route path='store'>
+            <IndexRoute component={Pages.Store.Index} />
+            <Route path='new' component={Pages.Store.NewProduct} />
+            <Route path=':productId' component={Pages.Store.Product} />
+          </Route>
+
           <Route path='articles'>
             <IndexRoute component={Pages.Articles.Index} />
             <Route path='new' component={Pages.Articles.NewArticle} />

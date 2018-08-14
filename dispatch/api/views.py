@@ -20,7 +20,7 @@ from dispatch.modules.actions.actions import list_actions, recent_articles
 from dispatch.models import (
     Article, File, Image, ImageAttachment, ImageGallery, Issue,
     Page, Author, Person, Section, Tag, Topic, User, Video,
-    Poll, PollAnswer, PollVote, Invite)
+    Poll, PollAnswer, PollVote, Invite, Product)
 
 from dispatch.core.settings import get_settings
 from dispatch.admin.registration import reset_password
@@ -31,7 +31,7 @@ from dispatch.api.serializers import (
     FileSerializer, IssueSerializer, ImageGallerySerializer, TagSerializer,
     TopicSerializer, PersonSerializer, UserSerializer, IntegrationSerializer,
     ZoneSerializer, WidgetSerializer, TemplateSerializer, VideoSerializer,
-    PollSerializer, PollVoteSerializer, InviteSerializer)
+    PollSerializer, PollVoteSerializer, InviteSerializer, ProductSerializer)
 from dispatch.api.exceptions import (
     ProtectedResourceError, BadCredentials, PollClosed, InvalidPoll,
     UnpermittedActionError)
@@ -386,6 +386,26 @@ class PollViewSet(DispatchModelViewSet):
         serializer.save()
 
         return Response(serializer.data)
+
+class StoreViewSet(DispatchModelViewSet):
+    """Viewset for the Product model Views. """
+    model = Product
+    serializer_class = ProductSerializer
+
+    def get_queryset(self):
+        queryset = Product.objects.all()
+
+        tags = self.request.query_params.getlist('tags', None)
+        q = self.request.query_params.get('q', None)
+
+        if tags is not None:
+            for tag in tags:
+                queryset = queryset.filter(tags__id=tag)
+
+        if q is not None:
+            queryset = queryset.filter(Q(title__icontains=q) | Q(img__icontains=q))
+
+        return queryset
 
 class TemplateViewSet(viewsets.GenericViewSet):
     """Viewset for Template views."""

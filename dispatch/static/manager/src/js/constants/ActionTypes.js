@@ -17,6 +17,7 @@ export const USERS = resourceActionTypes('USERS', ['RESET_PASSWORD'])
 export const VIDEOS = resourceActionTypes('VIDEOS')
 export const INVITES = resourceActionTypes('INVITES')
 export const POLLS = resourceActionTypes('POLLS')
+export const PRODUCTS = resourceActionTypes('PRODUCTS')
 
 // Authentication actions
 export const AUTH = actionTypes('AUTH', [

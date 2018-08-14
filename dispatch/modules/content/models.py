@@ -173,7 +173,7 @@ class Publishable(Model):
                 type(self).objects.filter(parent=self.parent, head=True).update(head=False)
 
                 # Clear the instance id to force Django to save a new instance.
-                # Both fields (pk, id) required for this to work -- something to do with model inheritance
+                # Both fielpreview_idds (pk, id) required for this to work -- something to do with model inheritance
                 self.pk = None
                 self.id = None
 
@@ -613,3 +613,37 @@ class PollVote(Model):
     id = UUIDField(default=uuid.uuid4, primary_key=True)
     answer = ForeignKey(PollAnswer, related_name='votes', on_delete=CASCADE)
     timestamp = DateTimeField(auto_now_add=True)
+
+class Product(Model):
+    image = ImageField(upload_to='images/store', null=True)
+    name = CharField(max_length=255)
+    description = TextField(blank=True, null=True)
+    price = PositiveIntegerField(null=True)
+    quantity = PositiveIntegerField(null=True)
+    size = CharField(max_length=255, null=True)
+    tags = ManyToManyField('Tag')
+    created_at = DateTimeField(auto_now_add=True)
+    updated_at = DateTimeField(auto_now=True)
+
+    def save_tags(self, tag_ids):
+        self.tags.clear()
+        for tag_id in tag_ids:
+            try:
+                tag = Tag.objects.get(id=int(tag_id))
+                self.tags.add(tag)
+            except Tag.DoesNotExist:
+                pass
+
+    def get_image_url(self):
+        return settings.MEDIA_URL + str(self.image)
+
+    def get_absolute_image_url(self):
+        """
+        Returns image URL.
+        """
+        if self.image:
+            return settings.MEDIA_URL + str(self.image)
+            
+    def __str__(self):
+        return self.full_name or ''
+    

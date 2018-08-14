@@ -3,20 +3,11 @@ import Dropzone from 'react-dropzone'
 import { AnchorButton } from '@blueprintjs/core'
 
 import { FormInput, TextInput, TextAreaInput } from '../inputs'
+import { TagSelectInput } from '../inputs/selects'
 
 require('../../../styles/components/person_form.scss')
 
-export default class PersonForm extends React.Component {
-  listPersons(query) {
-    let queryObj = {}
-
-    if (query) {
-      queryObj['q'] = query
-    }
-
-    this.props.listPersons(this.props.token, queryObj)
-  }
-
+export default class ProductForm extends React.Component {
   constructor(props) {
     super(props)
 
@@ -33,50 +24,20 @@ export default class PersonForm extends React.Component {
   render() {
     return (
       <form onSubmit={e => e.preventDefault()}>
-        {this.props.errors.detail ?
-          <div className='pt-callout pt-intent-danger c-person-form__image__error'>
-            {this.props.errors.detail}
-          </div> : null}
         <FormInput
-          label='Full Name'
+          label='Product Name'
           padded={false}
-          error={this.props.errors.full_name}>
+          error={this.props.errors.name}>
           <TextInput
-            placeholder='Full Name'
-            value={this.props.listItem.full_name || ''}
+            placeholder='Product Name'
+            value={this.props.listItem.name || ''}
             fill={true}
-            onChange={e => this.props.update('full_name', e.target.value)} />
+            onChange={e => this.props.update('name', e.target.value)} />
         </FormInput>
         <FormInput
-          label='Slug'
+          label='Image'
           padded={false}
-          error={this.props.errors.slug}>
-          <TextInput
-            placeholder='Slug'
-            value={this.props.listItem.slug || ''}
-            fill={true}
-            onChange={e => this.props.update('slug', e.target.value)} />
-        </FormInput>
-        <FormInput
-          label='Facebook'
-          padded={false}
-          error={this.props.errors.facebook_url}>
-          <TextInput
-            placeholder='Facebook url'
-            value={this.props.listItem.facebook_url || ''}
-            fill={true}
-            onChange={e => this.props.update('facebook_url', e.target.value)} />
-        </FormInput>
-        <FormInput
-          label='Twitter'
-          padded={false}
-          error={this.props.errors.twitter_url}>
-          <TextInput
-            placeholder='Twitter handle'
-            value={this.props.listItem.twitter_url || ''}
-            fill={true}
-            onChange={e => this.props.update('twitter_url', e.target.value)} />
-        </FormInput>
+          error={this.props.errors.image} />
         <Dropzone
           ref={(node) => { this.dropzone = node }}
           className='c-person-form__image__dropzone'
@@ -94,12 +55,17 @@ export default class PersonForm extends React.Component {
               className='c-person-form__images'
               src={this.state.displayImg || this.props.listItem.image_url} />
           </div>
-        </Dropzone>
-
+          </Dropzone>
         <div className='c-person-form__image__button'>
           <AnchorButton
             onClick={() => this.dropzone.open()}>Select Image</AnchorButton>
         </div>
+
+        {this.props.errors.detail ?
+          <div className='pt-callout pt-intent-danger c-person-form__image__error'>
+            {this.props.errors.detail}
+          </div> : null}
+
         <FormInput
           label='Description'
           padded={false}
@@ -109,6 +75,38 @@ export default class PersonForm extends React.Component {
             value={this.props.listItem.description || ''}
             fill={true}
             onChange={e => this.props.update('description', e.target.value)} />
+        </FormInput>
+        <FormInput
+          label='Price'
+          padded={false}
+          error={this.props.errors.price}>
+          <TextInput
+            placeholder={0}
+            unit={'$'}
+            type={'Number'}
+            step={.01}
+            value={this.props.listItem.price || 0}
+            fill={true}
+            onChange={e => this.props.update('price', e.target.value)} />
+        </FormInput>
+        <FormInput
+          label='Quantity'
+          padded={false}
+          error={this.props.errors.quantity}>
+          <TextInput
+            placeholder={0}
+            type={'Number'}
+            value={this.props.listItem.quantity || 0}
+            fill={true}
+            onChange={e => this.props.update('quantity', e.target.value)} />
+        </FormInput>
+        <FormInput
+          label='Tags'
+          error={this.props.errors.tag_ids}
+          padded={false}>
+          <TagSelectInput
+            selected={this.props.listItem.tags || []}
+            update={tags => this.props.update('tags', tags)} />
         </FormInput>
       </form>
     )

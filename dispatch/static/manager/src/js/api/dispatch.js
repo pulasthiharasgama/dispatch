@@ -486,7 +486,23 @@ const DispatchAPI = {
     delete: (token, pollId) => {
       return deleteRequest('polls', pollId, null, token)
     },
-
+  },  
+  products: {
+    list: (token, query) => {
+      return getRequest('store', null, query, token)
+    },
+    get: (token, productId, params) => {
+      return getRequest('store', productId, params, token)
+    },
+    save: (token, productId, data) => {
+      return patchMultipartRequest('store', productId, data, token)
+    },
+    create: (token, data) => {
+      return postMultipartRequest('store', null, data, token)
+    },
+    delete: (token, productId) => {
+      return deleteRequest('store', productId, null, token)
+    },
   }
 }
 

@@ -99,6 +99,7 @@ export default class ListItemsPageComponent extends React.Component {
     // extraColumns are after the main link column
     ), this.props.extraColumns || [])
 
+    const pluralItemName = this.props.typePlural === 'store' ? 'products' : this.props.typePlural
     return (
       <DocumentTitle title={this.props.pageTitle}>
         <ItemList
@@ -118,7 +119,7 @@ export default class ListItemsPageComponent extends React.Component {
           columns={columns}
           headers={this.props.headers}
 
-          emptyMessage={`You haven\'t created any ${this.props.typePlural} yet.`}
+          emptyMessage={`You haven\'t created any ${pluralItemName} yet.`}
           createHandler={() => (
             <LinkButton intent={Intent.SUCCESS} to={`${this.props.typePlural}/new`}>
               <span className='pt-icon-standard pt-icon-add' />Create {this.typeString}

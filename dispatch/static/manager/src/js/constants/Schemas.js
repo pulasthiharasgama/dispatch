@@ -18,6 +18,7 @@ export const userSchema = new Schema('users')
 export const videoSchema = new Schema('videos')
 export const inviteSchema = new Schema('invites')
 export const pollSchema = new Schema('polls')
+export const productSchema = new Schema('products')
 
 articleSchema.define({
   section: sectionSchema,
@@ -58,4 +59,8 @@ zoneSchema.define({
 
 userSchema.define({
   person: personSchema
+})
+
+productSchema.define({
+  tags: arrayOf(tagSchema),
 })
