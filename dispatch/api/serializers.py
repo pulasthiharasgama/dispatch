@@ -1061,16 +1061,16 @@ class ProductSerializer(DispatchModelSerializer):
         instance.save()
 
         image = validated_data.get('image', False)
-        print(image)
+
         if image != False:
             instance.save_image(image)
 
         tag_ids = validated_data.get('tag_ids', False)
         if tag_ids != False:
             instance.save_tags(tag_ids)
-        else: 
+        else:
             instance.save_tags([])
-        
+
         instance.save()
 
         return instance
