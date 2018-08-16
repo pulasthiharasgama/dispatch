@@ -11,6 +11,7 @@ import ModalContainer from '../components/ModalContainer'
 
 require('../../styles/components/toaster.scss')
 
+
 class Main extends React.Component {
   constructor(props) {
     super(props)
@@ -67,7 +68,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     closeModal: () => {
-      dispatch(modalActions.clospropseModal())
+      dispatch(modalActions.closeModal())
     },
     setupToaster: (toaster) => {
       dispatch(toasterActions.setupToaster(toaster))

@@ -105,7 +105,6 @@ class ImagesPageComponent extends React.Component {
   }
 
   render() {
-
     // The first column will always be a link, as defined here,
     // containing the item property associated with displayColumn
     const columns = R.insert(0, item => (
@@ -196,7 +195,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     listImages: (token, query) => {
-      dispatch(imageActions.list(token,query))
+      dispatch(imageActions.list(token, query))
     },
     toggleImage: (imageId) => {
       dispatch(imageActions.toggle(imageId))

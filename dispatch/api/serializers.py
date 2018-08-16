@@ -1061,6 +1061,7 @@ class ProductSerializer(DispatchModelSerializer):
         instance.save()
 
         image = validated_data.get('image', False)
+        print(image)
         if image != False:
             instance.save_image(image)
 
@@ -1069,5 +1070,7 @@ class ProductSerializer(DispatchModelSerializer):
             instance.save_tags(tag_ids)
         else: 
             instance.save_tags([])
+        
+        instance.save()
 
         return instance

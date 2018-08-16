@@ -11,6 +11,7 @@ const mapStateToProps = (state) => {
     listItems: state.app.products.list,
     entities: {
       listItems: state.app.entities.products,
+      images: state.app.entities.images
     }
   }
 }
@@ -41,6 +42,13 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
+const renderThumb = (url) => {
+  console.log(url.image)
+  return (
+    <div className={'c-image-page-thumb'} style={{backgroundImage: 'url(' + url + ')'}} />
+  )
+}
+
 function ProductsPageComponent(props) {
   const title = 'Store'
 
@@ -58,9 +66,10 @@ function ProductsPageComponent(props) {
       typeSingular='product'
       displayColumn='name'
       filters={filters}
-      headers={[ 'Name', '', 'Tags', 'Created', '']}
+      headers={[ 'Name', 'Preview', 'Tags', 'Created', '']}
       extraColumns={[
-        item => item.name,
+        // item => item.name,
+        item => (renderThumb(item)),
         item => item.tags,
         item => item.created_at,
         item => item.updated_at

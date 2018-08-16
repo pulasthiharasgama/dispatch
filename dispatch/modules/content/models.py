@@ -225,7 +225,9 @@ class Publishable(Model):
             'credit': str
           }
         """
-
+        
+        print('from article', data['image_id'])
+        
         attachment = self.featured_image
 
         if data is None:
@@ -249,7 +251,11 @@ class Publishable(Model):
         attachment.caption = data.get('caption', None)
         attachment.credit = data.get('credit', None)
 
+        print(attachment)
+
         instance_type = str(type(self)).lower()
+
+        print(instance_type)
 
         setattr(attachment, instance_type, self)
 
@@ -654,7 +660,7 @@ class Product(Model):
     created_at = DateTimeField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)
 
-    image = ForeignKey('ImageAttachment', on_delete=SET_NULL, related_name='%(class)s_featured_image', blank=True, null=True)
+    image = ForeignKey('ImageAttachment', on_delete=SET_NULL, related_name='%(class)s_image', blank=True, null=True)
     tags = ManyToManyField('Tag')
 
     def save_tags(self, tag_ids):
@@ -680,6 +686,8 @@ class Product(Model):
           }
         """
 
+        print('from model', data['image_id'])
+
         attachment = self.image
 
         if data is None:
@@ -703,7 +711,11 @@ class Product(Model):
         attachment.caption = data.get('caption', None)
         attachment.credit = data.get('credit', None)
 
+        print(attachment)
+
         instance_type = str(type(self)).lower()
+
+        print(instance_type)
 
         setattr(attachment, instance_type, self)
 
