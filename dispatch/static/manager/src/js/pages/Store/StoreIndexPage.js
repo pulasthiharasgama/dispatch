@@ -43,7 +43,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const renderThumb = (url) => {
-  console.log(url.image)
   return (
     <div className={'c-image-page-thumb'} style={{backgroundImage: 'url(' + url + ')'}} />
   )
@@ -69,7 +68,7 @@ function ProductsPageComponent(props) {
       headers={[ 'Name', 'Preview', 'Quantity', 'Tags', 'Created', '']}
       extraColumns={[
         // item => item.name,
-        item => (renderThumb(item)),
+        item => (renderThumb(item.image.image.url_thumb)),
         item => item.quantity,
         item => item.tags,
         item => item.created_at,
