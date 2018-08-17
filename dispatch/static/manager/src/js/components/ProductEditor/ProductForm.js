@@ -3,7 +3,6 @@ import R from 'ramda'
 
 import { FormInput, TextInput, TextAreaInput, ImageInput } from '../inputs'
 import { TagSelectInput } from '../inputs/selects'
-import SizeSelect from './SizeSelect';
 
 require('../../../styles/components/person_form.scss')
 
@@ -19,13 +18,13 @@ export default class ProductForm extends React.Component {
   updateImage(imageId) {
     if (imageId) {
       return this.props.update(
-          'image',
-          R.merge(this.props.listItem.image, { image: imageId })
+        'image',
+        R.merge(this.props.listItem.image, { image: imageId })
       )
     } else {
       return this.props.update(
-          'image',
-          null
+        'image',
+        null
       )
     }
   }
@@ -95,9 +94,7 @@ export default class ProductForm extends React.Component {
         <FormInput
           label='Size Options'
           padded={false}
-          error={this.props.errors.size}>
-          {/* <SizeSelect sizes={this.props.listItem.size || []}/> */}
-        </FormInput>
+          error={this.props.errors.size} />
         <FormInput
           label='Quantity'
           padded={false}

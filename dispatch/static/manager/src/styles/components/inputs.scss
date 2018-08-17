@@ -25,11 +25,15 @@
     // Structure
     display: block;
   }
-  .pt-control-group > :first-child :not(input){
+  
+}
+
+.c-item-list__header__filters__dropdown {
+  .pt-control-group > button:first-child {
     width: 35%;
     text-align: left;
   }
-  .pt-control-group > :last-child :not(input){
+  .pt-control-group > button:last-child {
     width: 65%;
     text-align: right;
   }
