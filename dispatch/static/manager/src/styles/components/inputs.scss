@@ -25,11 +25,11 @@
     // Structure
     display: block;
   }
-  .pt-control-group > :first-child {
+  .pt-control-group > :first-child :not(input){
     width: 35%;
     text-align: left;
   }
-  .pt-control-group > :last-child {
+  .pt-control-group > :last-child :not(input){
     width: 65%;
     text-align: right;
   }
