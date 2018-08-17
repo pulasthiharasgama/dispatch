@@ -225,9 +225,7 @@ class Publishable(Model):
             'credit': str
           }
         """
-        
-        print('from article', data['image_id'])
-        
+
         attachment = self.featured_image
 
         if data is None:
@@ -251,11 +249,7 @@ class Publishable(Model):
         attachment.caption = data.get('caption', None)
         attachment.credit = data.get('credit', None)
 
-        print(attachment)
-
         instance_type = str(type(self)).lower()
-
-        print(instance_type)
 
         setattr(attachment, instance_type, self)
 
@@ -686,8 +680,6 @@ class Product(Model):
           }
         """
 
-        print('from model', data['image_id'])
-
         attachment = self.image
 
         if data is None:
@@ -711,11 +703,7 @@ class Product(Model):
         attachment.caption = data.get('caption', None)
         attachment.credit = data.get('credit', None)
 
-        print(attachment)
-
         instance_type = str(type(self)).lower()
-
-        print(instance_type)
 
         setattr(attachment, instance_type, self)
 

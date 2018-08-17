@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import ItemIndexPage from '../ItemIndexPage'
 import { TagsFilterInput }  from '../../components/inputs/filters/'
 import productsActions from '../../actions/ProductsActions'
+import { humanizeDatetime } from '../../util/helpers'
 
 const mapStateToProps = (state) => {
   return {
@@ -43,7 +44,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const renderThumb = (url) => {
-  console.log(url.image)
   return (
     <div className={'c-image-page-thumb'} style={{backgroundImage: 'url(' + url + ')'}} />
   )
@@ -68,12 +68,11 @@ function ProductsPageComponent(props) {
       filters={filters}
       headers={[ 'Name', 'Preview', 'Quantity', 'Tags', 'Created', '']}
       extraColumns={[
-        // item => item.name,
-        item => (renderThumb(item)),
+        item => (renderThumb(item.image.image.url_thumb)),
         item => item.quantity,
         item => item.tags,
-        item => item.created_at,
-        item => item.updated_at
+        item => item.created_at ? humanizeDatetime(item.created_at) : '',
+        item => item.updated_at ? humanizeDatetime(item.updated_at) : ''
       ]}
       shouldReload={(prevProps, props) => {
         return (

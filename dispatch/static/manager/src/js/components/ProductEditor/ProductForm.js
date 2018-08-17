@@ -42,7 +42,7 @@ export default class ProductForm extends React.Component {
     return (
       <ImageInput
         removable={true}
-        selected={this.props.listItem.image.image}
+        selected={this.props.listItem.image.image.id}
         onChange={imageId => this.updateImage(imageId)} />
     )
   }

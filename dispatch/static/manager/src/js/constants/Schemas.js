@@ -71,7 +71,4 @@ userSchema.define({
 
 productSchema.define({
   tags: arrayOf(tagSchema),
-  image: {
-    image: imageSchema,
-  },
 })
