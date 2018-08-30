@@ -41,7 +41,7 @@ class ArticleSidebar extends React.Component {
           <Tab
             id='basic'
             className={'c-article-sidebar__tab ' + this.tabHighlight(BASIC_ERRORS, errors)}
-            title='Basic fields'
+            title='Basic Fields'
             panel={
               <BasicFieldsTab
                 update={this.props.update}
