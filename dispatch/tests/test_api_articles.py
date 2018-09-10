@@ -722,7 +722,7 @@ class ArticlesTests(DispatchAPITestCase, DispatchMediaTestMixin):
 
         image_file = 'test_image_a.jpg'
 
-        with open(self.get_input_file(image_file)) as test_image:
+        with open(self.get_input_file(image_file), 'rb') as test_image:
             image = self.client.post(url, { 'img': test_image }, format='multipart')
 
         data = {
@@ -746,7 +746,7 @@ class ArticlesTests(DispatchAPITestCase, DispatchMediaTestMixin):
 
         image_file = 'test_image_a.jpg'
 
-        with open(self.get_input_file(image_file)) as test_image:
+        with open(self.get_input_file(image_file), 'rb') as test_image:
             image = self.client.post(url, { 'img': test_image }, format='multipart')
 
         data = {
@@ -778,7 +778,7 @@ class ArticlesTests(DispatchAPITestCase, DispatchMediaTestMixin):
 
         image_file = 'test_image_a.jpg'
 
-        with open(self.get_input_file(image_file)) as test_image:
+        with open(self.get_input_file(image_file), 'rb') as test_image:
             image = self.client.post(url, { 'img': test_image }, format='multipart')
 
         data = {
