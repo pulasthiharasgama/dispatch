@@ -312,7 +312,7 @@ class ImagesTests(DispatchAPITestCase, DispatchMediaTestMixin):
                 response = self.client.patch(imageurl, new_data, format='json')
 
         for image_file in filesb:
-            with open(self.get_input_file(image_file)) as test_image:
+            with open(self.get_input_file(image_file), 'rb') as test_image:
                 response = self.client.post(url, { 'img': test_image }, format='multipart')
 
         url = reverse('api-images-detail', args=[image.data['id']])
@@ -355,7 +355,7 @@ class ImagesTests(DispatchAPITestCase, DispatchMediaTestMixin):
                 response = self.client.patch(imageurl, new_data, format='json')
 
         for image_file in filesb:
-            with open(self.get_input_file(image_file)) as test_image:
+            with open(self.get_input_file(image_file), 'rb') as test_image:
                 response = self.client.post(url, { 'img': test_image }, format='multipart')
 
         url = reverse('api-images-detail', args=[image.data['id']])
@@ -384,7 +384,7 @@ class ImagesTests(DispatchAPITestCase, DispatchMediaTestMixin):
         filename = 'test_image_b'
 
         for image_file in files:
-            with open(self.get_input_file(image_file)) as test_image:
+            with open(self.get_input_file(image_file), 'rb') as test_image:
                 response = self.client.post(url, { 'img': test_image }, format='multipart')
 
         url = '%s?q=%s' % (reverse('api-images-list'), filename)
