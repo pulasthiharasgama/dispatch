@@ -7,6 +7,7 @@ import IssueForm from './IssueForm'
 import ItemEditor from '../ItemEditor'
 
 const TYPE = 'Issue'
+const TYPE_PLURAL = 'Issues'
 const AFTER_DELETE = 'issues'
 
 const mapStateToProps = (state) => {
@@ -44,6 +45,7 @@ function IssueEditorComponent(props) {
   return (
     <ItemEditor
       type={TYPE}
+      typePlural={TYPE_PLURAL}
       afterDelete={AFTER_DELETE}
       displayField='title'
       form={IssueForm}
